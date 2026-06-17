@@ -1,0 +1,19 @@
+[Unit]
+Description=Bun Drama API Service
+After=network.target
+
+[Service]
+# Sesuaikan 'User' dengan username VPS Anda (contoh: root atau ubuntu)
+User=root
+Group=root
+WorkingDirectory=/home/ramzgxz/code/bun-drama-api
+ExecStart=/home/ramzgxz/.local/bin/bun server.ts
+Restart=always
+# Restart service jika crash dalam 10 detik
+RestartSec=10
+Environment=NODE_ENV=production
+# Load environment khusus VPS
+EnvironmentFile=/home/ramzgxz/code/bun-drama-api/.env.vps
+
+[Install]
+WantedBy=multi-user.target

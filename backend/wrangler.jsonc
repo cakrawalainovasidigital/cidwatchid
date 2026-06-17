@@ -1,0 +1,49 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "bun-drama-api",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-01-01",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"vars": {
+		"BASE_URL_V1": "https://ramzapi.vercel.app",
+		"BASE_URL_V2": "https://captain.sapimu.au",
+		"BASE_URL_V3": "https://rebahin-api.vercel.app",
+		"BASE_URL_V4": "https://h5-api.aoneroom.com"
+		// "REBAHIN_PROXY": "https://long-sunset-846c.ranzdaffa32.workers.dev"
+	},
+	"d1_databases": [
+		{
+			"binding": "drama",
+			"database_name": "drama-databases",
+			"database_id": "ffbd2b30-10b6-4bcd-a55c-c0de9fd0ea17",
+			"remote": true
+		}
+	],
+	"preview_urls": false,
+	"workers_dev": false,
+	// ,
+	// "kv_namespaces": [
+	//   {
+	//     "binding": "MY_KV_NAMESPACE",
+	//     "id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+	//   }
+	// ],
+	// "r2_buckets": [
+	//   {
+	//     "binding": "MY_BUCKET",
+	//     "bucket_name": "my-bucket"
+	//   }
+	// ],
+	// "ai": {
+	//   "binding": "AI"
+	// },
+	"observability": {
+		"enabled": true,
+		"head_sampling_rate": 1,
+		"traces": {
+			"enabled": true
+		}
+	}
+}

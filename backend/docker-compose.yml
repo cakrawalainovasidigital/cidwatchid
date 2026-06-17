@@ -1,0 +1,64 @@
+# ============================================
+# Docker Compose for Drama API
+# Usage: docker-compose up -d
+# ============================================
+
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: drama-api
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8787}:8787"
+    environment:
+      - NODE_ENV=production
+      - PORT=8787
+      - HOST=0.0.0.0
+    env_file:
+      - .env.vps
+    networks:
+      - drama-network
+    healthcheck:
+      test: ["CMD", "bun", "-e", "fetch('http://localhost:8787/health').then(r => r.ok ? process.exit(0) : process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
+  # PostgreSQL Database (optional - uncomment if needed)
+  # db:
+  #   image: postgres:15-alpine
+  #   container_name: drama-db
+  #   restart: unless-stopped
+  #   environment:
+  #     POSTGRES_USER: ${DB_USER:-drama}
+  #     POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+  #     POSTGRES_DB: ${DB_NAME:-drama_db}
+  #   volumes:
+  #     - postgres-data:/var/lib/postgresql/data
+  #   ports:
+  #     - "5432:5432"
+  #   networks:
+  #     - drama-network
+
+  # Redis Cache (optional - uncomment if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: drama-redis
+  #   restart: unless-stopped
+  #   volumes:
+  #     - redis-data:/data
+  #   networks:
+  #     - drama-network
+
+networks:
+  drama-network:
+    driver: bridge
+
+# volumes:
+#   postgres-data:
+#   redis-data:
