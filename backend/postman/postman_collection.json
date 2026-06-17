@@ -1,0 +1,2060 @@
+{
+  "info": {
+    "_postman_id": "cid-watch-api-collection",
+    "name": "CID Watch API",
+    "description": "API Collection for CID Watch - Aggregator for Drama, Anime, Movies, and Manga",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "🏠 Home & Health",
+      "item": [
+        {
+          "name": "Get Homepage Data",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/home",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "home"]
+            },
+            "description": "Get all homepage data with cache (2 days)"
+          },
+          "response": []
+        },
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/health",
+              "host": ["{{baseUrl}}"],
+              "path": ["health"]
+            },
+            "description": "Check API health status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "🔐 Authentication",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"your_username\",\n  \"password\": \"your_password\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "description": "Login user and set session cookie"
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"your_username\",\n  \"email\": \"your_email@example.com\",\n  \"password\": \"your_password\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "description": "Register new user"
+          },
+          "response": []
+        },
+        {
+          "name": "Get API Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"your_username\",\n  \"password\": \"your_password\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/get-token",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "get-token"]
+            },
+            "description": "Get API token for authenticated requests (expires in 1 hour)"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "sid={{sessionId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "logout"]
+            },
+            "description": "Logout user and clear session (requires auth session)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "👤 Users",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "sid={{sessionId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/get",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "get"]
+            },
+            "description": "Get all users list (requires auth session)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update User",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "sid={{sessionId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"new_username\",\n  \"email\": \"new_email@example.com\",\n  \"isFree\": true,\n  \"subcriptionStart\": \"2024-01-01T00:00:00Z\",\n  \"subcriptionExpired\": \"2024-12-31T23:59:59Z\",\n  \"paymentMethod\": \"credit_card\",\n  \"paymentStatus\": \"paid\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/update/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "update", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user_id_here",
+                  "description": "User ID to update"
+                }
+              ]
+            },
+            "description": "Update user data (requires auth session)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "sid={{sessionId}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/user/delete/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "delete", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "user_id_here",
+                  "description": "User ID to delete"
+                }
+              ]
+            },
+            "description": "Delete user (requires auth session)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Cookie",
+                "value": "sid={{sessionId}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"old_password\",\n  \"newPassword\": \"new_password\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/user/update-password",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "user", "update-password"]
+            },
+            "description": "Update user password (requires auth session)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📺 Drama",
+      "item": [
+        {
+          "name": "Get Drama Providers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/drama/providers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "drama", "providers"]
+            },
+            "description": "Get list of available drama providers"
+          },
+          "response": []
+        },
+        {
+          "name": "🎬 Dramabox",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/recommendations?lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "recommendations"],
+                  "query": [
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/new-release?page=1&pageSize=20&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "new-release"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "20",
+                      "description": "Items per page (default: 20)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/rank?page=1&pageSize=15&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "rank"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "15",
+                      "description": "Items per page (default: 15)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Drama",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/search?query=love",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love",
+                      "description": "Search query"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Suggest",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/search-suggest?query=love",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "search-suggest"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love",
+                      "description": "Search query for suggestions"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "genre_id",
+                      "description": "Genre ID"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Drama Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "drama_id",
+                      "description": "Drama/Book ID"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream Video",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/stream/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "stream", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "drama_id",
+                      "description": "Drama/Book ID"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream Chapter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/stream/:id/:chapterIndex",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "stream", ":id", ":chapterIndex"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "drama_id",
+                      "description": "Drama/Book ID"
+                    },
+                    {
+                      "key": "chapterIndex",
+                      "value": "1",
+                      "description": "Chapter index number"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Languages",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/languages",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "languages"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get VIP Content",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/vip",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "vip"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Cache Stats",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/dramabox/debug/cache",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "dramabox", "debug", "cache"]
+                },
+                "description": "Get cache statistics (debug)"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "🎭 Melolo",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/rank",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "rank"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Drama",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/search?query=love",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Suggest",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/search-suggest?query=love",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "search-suggest"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Detail Series",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "series_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/stream/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "stream", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "series_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream Chapter",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/melolo/stream/:id/:chapterIndex",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "melolo", "stream", ":id", ":chapterIndex"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "series_id"
+                    },
+                    {
+                      "key": "chapterIndex",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "⭐ Starshort",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/rank",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "rank"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Drama",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/search?query=love",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Suggest",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/search-suggest?query=love",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "search-suggest"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Tabs",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "genre_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Drama Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "drama_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream Video",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/stream/:id/:episode?",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "stream", ":id", ":episode"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "drama_id"
+                    },
+                    {
+                      "key": "episode",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Languages",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/drama/starshort/languages",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "drama", "starshort", "languages"]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "🆕 Drama V2 (Combined)",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/recommendations?page=1&limit=15&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "recommendations"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "15",
+                      "description": "Items per page (default: 15, max: 50)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Combined trending recommendations from Dramabox and Melolo. Cache: 5 minutes."
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/new-release?page=1&limit=15&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "new-release"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "15",
+                      "description": "Items per page (default: 15)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Combined new releases from both providers. Cache: 5 minutes."
+              },
+              "response": []
+            },
+            {
+              "name": "Search Drama",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/search?query=love&page=1&limit=15&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "love",
+                      "description": "Search keyword (required)"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "15",
+                      "description": "Items per page (default: 15)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Search across both Dramabox and Melolo. Results not shuffled. Cache: 5 minutes."
+              },
+              "response": []
+            },
+            {
+              "name": "Get VIP Content",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/vip?type=1&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "vip"],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "1",
+                      "description": "Provider type: 1=Dramabox (required, Melolo not supported)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "VIP content from Dramabox only. Cache: 1 hour."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/genre?page=1&limit=30&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "genre"],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "30",
+                      "description": "Items per page (default: 30)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "List all genres from Dramabox. Cache: 1 hour."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Details",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/genre/:id?type=1&page=1&limit=15&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "1",
+                      "description": "Genre ID from /genre endpoint"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "1",
+                      "description": "Provider type (default: 1, Dramabox only)"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "description": "Page number (default: 1)"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "15",
+                      "description": "Items per page (default: 15)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Get dramas by genre ID. Cache: 5 minutes."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Drama Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/detail/:id?type=1&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "42000000651",
+                      "description": "Drama ID"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "1",
+                      "description": "Provider type: 1=Dramabox, 2=Melolo (required)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Get drama details with chapter list. No cache."
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/stream/:id/:chapterId?type=1&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "stream", ":id", ":chapterId"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "42000000651",
+                      "description": "Drama ID"
+                    },
+                    {
+                      "key": "chapterId",
+                      "value": "ch001",
+                      "description": "Chapter ID from detail endpoint"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "1",
+                      "description": "Provider type: 1=Dramabox, 2=Melolo (required)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Get stream URL for a specific chapter. Uses chapterId to find stream. No cache."
+              },
+              "response": []
+            },
+            {
+              "name": "Get All Chapters (Batch)",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/v2/drama/get-all-chapters/:id?type=1&lang=in",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "v2", "drama", "get-all-chapters", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "42000000651",
+                      "description": "Drama ID"
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "type",
+                      "value": "1",
+                      "description": "Provider type: 1=Dramabox (required, Melolo not supported)"
+                    },
+                    {
+                      "key": "lang",
+                      "value": "in",
+                      "description": "Language code (default: in)"
+                    }
+                  ]
+                },
+                "description": "Batch download all chapters with stream URLs. Dramabox only. May take longer. No cache."
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🎌 Anime",
+      "item": [
+        {
+          "name": "Get Anime Providers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/anime/providers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "anime", "providers"]
+            },
+            "description": "Get list of available anime providers"
+          },
+          "response": []
+        },
+
+        {
+          "name": "Tensei",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/rank",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "rank"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Anime",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/search?query=naruto",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "naruto"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "action"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Anime Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "anime_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/tensei/stream/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "tensei", "stream", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "anime_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "AnimeIn",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/rank",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "rank"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Anime",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/search?query=naruto",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "naruto"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Anime Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "anime_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/stream/:episodeId",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "stream", ":episodeId"],
+                  "variable": [
+                    {
+                      "key": "episodeId",
+                      "value": "episode_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/anime/animein/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "anime", "animein", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "action"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "🎬 Movies",
+      "item": [
+        {
+          "name": "Get Movie Providers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/movies/providers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "movies", "providers"]
+            },
+            "description": "Get list of available movie providers"
+          },
+          "response": []
+        },
+        {
+          "name": "FlixHQ",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Country List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/country",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "country"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "action"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Country Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/country/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "country", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "US"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Movie Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/detail?id=movie_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "detail"],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "movie_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/flixhq/stream?id=episode_id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "flixhq", "stream"],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "episode_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Rebahin",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Country List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/country",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "country"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "action"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Country Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/country/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "country", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "US"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Movie Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "movie_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Stream",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/stream/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "stream", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "episode_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Movies",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/rebahin/search?query=avengers",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "rebahin", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "avengers"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "LK21",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/movies/lk21/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "movies", "lk21", "recommendations"]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📚 Manga",
+      "item": [
+        {
+          "name": "Get Manga Providers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/manga/providers",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "manga", "providers"]
+            },
+            "description": "Get list of available manga providers"
+          },
+          "response": []
+        },
+        {
+          "name": "Komikku",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/rank",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "rank"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Manga Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "manga_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Manga",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/search?query=naruto",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "naruto"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Chapters",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/chapters",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "chapters"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre List",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/genre",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "genre"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Genre Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/komikku/genre/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "komikku", "genre", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "action"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "MangaHere",
+          "item": [
+            {
+              "name": "Get Recommendations",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/mangahere/recommendations",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "mangahere", "recommendations"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Rank",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/mangahere/rank",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "mangahere", "rank"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get New Release",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/mangahere/new-release",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "mangahere", "new-release"]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Manga Detail",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/mangahere/detail/:id",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "mangahere", "detail", ":id"],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "manga_id"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Search Manga",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/mangahere/search?query=naruto",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "mangahere", "search"],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "naruto"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Chapters",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/manga/mangahere/chapters",
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "manga", "mangahere", "chapters"]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📖 API Documentation",
+      "item": [
+        {
+          "name": "Scalar Docs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": ["{{baseUrl}}"],
+              "path": ["/"]
+            },
+            "description": "Interactive API documentation using Scalar"
+          },
+          "response": []
+        },
+        {
+          "name": "OpenAPI Spec",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/openapi.json",
+              "host": ["{{baseUrl}}"],
+              "path": ["openapi.json"]
+            },
+            "description": "OpenAPI/Swagger specification JSON"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://bun-drama-api.ranzdaffa32.workers.dev",
+      "type": "string",
+      "description": "Base URL for the API"
+    },
+    {
+      "key": "sessionId",
+      "value": "",
+      "type": "string",
+      "description": "Session ID cookie (obtained after login)"
+    }
+  ]
+}
